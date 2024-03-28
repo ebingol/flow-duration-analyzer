@@ -9,6 +9,8 @@ from sklearn.mixture import BayesianGaussianMixture
 from sklearn.preprocessing import StandardScaler
 import seaborn as sns
 
+LAB_FLOW_DURATION_BGMM_ = '/Users/ezgi-lab/FlowDuration/BGMM/'
+
 
 def scale_to_percentage(data_frame):
     # rank the mahalanobi_distance
@@ -44,12 +46,12 @@ def post_process(data_frame, bgm, flow_id, method_name):
     data_frame_components = data_frame_components.sort_values(by=['weights'], ascending=False).reset_index(drop=True)
     # save  the data_frame to /Users/ezgi-lab/FlowDuration/flow_id_gmm.csv
     data_frame.to_csv(
-        '/Users/ezgi-lab/FlowDuration/BGMM/' + method_name + '/FlowId_' + str(flow_id) + '/flow_id_bgmm' + str(
+        LAB_FLOW_DURATION_BGMM_ + method_name + '/FlowId_' + str(flow_id) + '/flow_id_bgmm' + str(
             flow_id) + '.csv',
         index=False)
     # save the data_frame_components to /Users/ezgi-lab/FlowDuration/flow_id_components.csv
     data_frame_components.to_csv(
-        '/Users/ezgi-lab/FlowDuration/BGMM/' + method_name + '/FlowId_' + str(flow_id) + '/flow_id_components' + str(
+        LAB_FLOW_DURATION_BGMM_ + method_name + '/FlowId_' + str(flow_id) + '/flow_id_components' + str(
             flow_id) + '.csv',
         index=False)
 
@@ -66,7 +68,7 @@ def visualize(data_frame, flow_id, method_name):
     sns.stripplot(data=df_mahalanobi_5, x="start_date", y="difference", color='red', s=10)
     # save the plot to  /Users/ezgi-lab/FlowDuration/flow_id.png
     plt.savefig(
-        '/Users/ezgi-lab/FlowDuration/BGMM/' + method_name + '/FlowId_' + str(flow_id) + '/anomaly_bgmm.png')
+        LAB_FLOW_DURATION_BGMM_ + method_name + '/FlowId_' + str(flow_id) + '/anomaly_bgmm.png')
     # close the plot
     plt.close()
     # clear the plot
