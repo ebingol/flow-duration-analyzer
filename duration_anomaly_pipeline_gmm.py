@@ -1,6 +1,5 @@
 import numpy as np
 import scipy
-from scipy.spatial import distance
 from sklearn.mixture import BayesianGaussianMixture, GaussianMixture
 
 import utility as util
