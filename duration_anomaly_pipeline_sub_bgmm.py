@@ -26,7 +26,7 @@ def execute_sub_bgm(data_frame):
     data_frame['sub_label'] = 0
     data_frame['sub_label_mean'] = 0.00
     data_frame['mahalanobi_distance_org'] = data_frame['mahalanobi_distance']
-    # for each cluster size greter than 10 execute bgmm with initial cluster size 5 and assign the labels to
+    # for each cluster size greater than 10 execute bgmm with initial cluster size 5 and assign the labels to
     # data_frame as sub_label
     for label in data_frame['label'].unique():
         if data_frame[data_frame['label'] == label].shape[0] > 10:
@@ -36,10 +36,10 @@ def execute_sub_bgm(data_frame):
                                               init_params='kmeans', verbose=1, verbose_interval=10, tol=0.0001,
                                               reg_covar=1e-06, n_init=1, warm_start=False)
             data_frame_sub = data_frame[data_frame['label'] == label]
-            X_sub = np.array(data_frame[data_frame['label'] == label]['mahalanobi_distance'])
-            X_sub = X_sub.reshape(-1, 1)
-            sub_bgm.fit(X_sub)
-            sub_labels = sub_bgm.predict(X_sub)
+            x_sub = np.array(data_frame[data_frame['label'] == label]['mahalanobi_distance'])
+            x_sub = x_sub.reshape(-1, 1)
+            sub_bgm.fit(x_sub)
+            sub_labels = sub_bgm.predict(x_sub)
             data_frame_sub.loc[:, 'sub_label'] = sub_labels
             data_frame_sub.loc[:, 'sub_label_mean'] = sub_bgm.means_[sub_labels]
             # start_date aynı olan kayıtların sub_label ve sub_label_mean değerlerini data_frame_sub'tan data_frame'e

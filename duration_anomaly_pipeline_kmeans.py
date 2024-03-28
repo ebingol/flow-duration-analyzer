@@ -1,8 +1,6 @@
 import numpy as np
 import scipy
 from sklearn.cluster import KMeans
-from sklearn.mixture import BayesianGaussianMixture, GaussianMixture
-
 import utility as util
 
 
@@ -33,7 +31,7 @@ def run(file_path):
     for flow_id in flow_ids:
         kmeans, data_frame = execute_kmeans(data_frame_all, flow_id)
 
-        # calculate percental rank of pdf values
+        # calculate distance from each point to its assigned cluster center
         data_frame['mahalanobi_anomaly_score'] = (scipy.stats.rankdata(data_frame['distance'])
                                                   / len(data_frame['distance']))
 

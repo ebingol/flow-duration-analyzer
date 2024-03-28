@@ -1,6 +1,6 @@
 import numpy as np
 import scipy
-from sklearn.mixture import BayesianGaussianMixture, GaussianMixture
+from sklearn.mixture import  GaussianMixture
 
 import utility as util
 
@@ -25,12 +25,13 @@ def run(file_path):
     for flow_id in flow_ids:
         ggm, data_frame = execute_gmm(data_frame_all, flow_id)
 
-        # preprobality density function of the data points
+        # probability density function of the data points
         data_frame['pdf'] = np.abs(ggm.score_samples(data_frame['difference'].values.reshape(-1, 1)))
 
-        # calculate percental rank of pdf values
+        # calculate percent rank of pdf values
         data_frame['mahalanobi_anomaly_score'] = scipy.stats.rankdata(data_frame['pdf']) / len(data_frame['pdf'])
-        # scale the mahalanobi_anomaly_score to 100
+
+        # scale the anomaly_score to 100
         data_frame = util.calculate_anomaly_score(data_frame, flow_id, method="gmm")
 
         util.visualize(data_frame, flow_id, "gmm")
